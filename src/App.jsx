@@ -48,7 +48,7 @@ const PLANS = [
 ]
 
 function App() {
-  const [form, setForm] = useState({ name: '', phone: '', city: '', plan: 'Старт', message: '' })
+  const [form, setForm] = useState({ name: '', phone: '', city: '', plan: 'Старт', message: '', consent: false })
   const [status, setStatus] = useState('idle')
 
   useEffect(() => {
@@ -69,7 +69,8 @@ function App() {
   }, [])
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
+    const { name, value, type, checked } = e.target
+    setForm({ ...form, [name]: type === 'checkbox' ? checked : value })
   }
 
   const handleSubmit = async (e) => {
@@ -83,7 +84,7 @@ function App() {
       })
       if (!res.ok) throw new Error('request failed')
       setStatus('success')
-      setForm({ name: '', phone: '', city: '', plan: 'Старт', message: '' })
+      setForm({ name: '', phone: '', city: '', plan: 'Старт', message: '', consent: false })
     } catch {
       setStatus('error')
     }
@@ -249,7 +250,27 @@ function App() {
                 />
               </label>
 
-              <button className="btn btn--primary" type="submit" disabled={status === 'loading'}>
+              <label className="field field--checkbox">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  checked={form.consent}
+                  onChange={handleChange}
+                  required
+                />
+                <span>
+                  Согласен(-на) на{' '}
+                  <a href="/privacy.html" target="_blank" rel="noopener noreferrer">
+                    обработку персональных данных
+                  </a>
+                </span>
+              </label>
+
+              <button
+                className="btn btn--primary"
+                type="submit"
+                disabled={status === 'loading' || !form.consent}
+              >
                 {status === 'loading' ? 'Отправляем…' : 'Отправить заявку'}
               </button>
 
