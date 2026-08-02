@@ -274,15 +274,19 @@ function App() {
             <div className="contacts__grid">
               <div className="contacts__item reveal" style={{ '--d': 0 }}>
                 <span>Телефон</span>
-                <strong>+79371655455</strong>
+                <strong><a href="tel:+79371655455">+7 937 165-54-55</a></strong>
               </div>
               <div className="contacts__item reveal" style={{ '--d': 1 }}>
                 <span>Telegram</span>
-                <strong>https://t.me/lordgeass</strong>
+                <strong>
+                  <a href="https://t.me/lordgeass" target="_blank" rel="noopener noreferrer">
+                    @lordgeass
+                  </a>
+                </strong>
               </div>
               <div className="contacts__item reveal" style={{ '--d': 2 }}>
                 <span>Email</span>
-                <strong>d1zzze616@gmail.com</strong>
+                <strong><a href="mailto:d1zzze616@gmail.com">d1zzze616@gmail.com</a></strong>
               </div>
             </div>
           </div>
