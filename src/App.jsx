@@ -48,7 +48,7 @@ const PLANS = [
 ]
 
 function App() {
-  const [form, setForm] = useState({ name: '', phone: '', city: '', message: '' })
+  const [form, setForm] = useState({ name: '', phone: '', city: '', plan: 'Старт', message: '' })
   const [status, setStatus] = useState('idle')
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function App() {
           }
         })
       },
-      { threshold: 0.15 }
+      { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
     )
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
@@ -83,7 +83,7 @@ function App() {
       })
       if (!res.ok) throw new Error('request failed')
       setStatus('success')
-      setForm({ name: '', phone: '', city: '', message: '' })
+      setForm({ name: '', phone: '', city: '', plan: 'Старт', message: '' })
     } catch {
       setStatus('error')
     }
@@ -144,8 +144,10 @@ function App() {
 
         <section className="advantages" id="advantages">
           <div className="container">
-            <span className="eyebrow">Почему мы</span>
-            <h2>Каждый этаж закрывает свою задачу</h2>
+            <div className="reveal">
+              <span className="eyebrow">Почему мы</span>
+              <h2>Каждый этаж закрывает свою задачу</h2>
+            </div>
             <div className="advantages__grid">
               {ADVANTAGES.map((a, i) => (
                 <div className="advantage reveal" key={a.floor} style={{ '--d': i }}>
@@ -202,6 +204,16 @@ function App() {
                 />
               </label>
               <label className="field">
+                <span>Тариф</span>
+                <select name="plan" value={form.plan} onChange={handleChange}>
+                  {PLANS.map((p) => (
+                    <option key={p.name} value={p.name}>
+                      {p.name} — {p.price}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="field">
                 <span>Комментарий</span>
                 <textarea
                   name="message"
@@ -230,8 +242,10 @@ function App() {
 
         <section className="price" id="price">
           <div className="container">
-            <span className="eyebrow">Прайс</span>
-            <h2>Тарифы </h2>
+            <div className="reveal">
+              <span className="eyebrow">Прайс</span>
+              <h2>Тарифы </h2>
+            </div>
             <div className="price__grid">
               {PLANS.map((p, i) => (
                 <div className="price__card reveal" key={p.name} style={{ '--d': i }}>
@@ -247,7 +261,7 @@ function App() {
 
         <section className="contacts" id="contacts">
           <div className="container contacts__row">
-            <div>
+            <div className="reveal">
               <span className="eyebrow">Контакты</span>
               <h2>Свяжитесь с нами</h2>
             </div>
