@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const BUILDINGS = [
   { label: 'Приветствие', floors: 3 },
@@ -50,6 +50,23 @@ const PLANS = [
 function App() {
   const [form, setForm] = useState({ name: '', phone: '', city: '', message: '' })
   const [status, setStatus] = useState('idle')
+
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            io.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -130,8 +147,8 @@ function App() {
             <span className="eyebrow">Почему мы</span>
             <h2>Каждый этаж закрывает свою задачу</h2>
             <div className="advantages__grid">
-              {ADVANTAGES.map((a) => (
-                <div className="advantage" key={a.floor}>
+              {ADVANTAGES.map((a, i) => (
+                <div className="advantage reveal" key={a.floor} style={{ '--d': i }}>
                   <span className="advantage__floor">Этаж {a.floor}</span>
                   <h3>{a.title}</h3>
                   <p>{a.text}</p>
@@ -143,7 +160,7 @@ function App() {
 
         <section className="form-section" id="form">
           <div className="container form-section__row">
-            <div className="form-section__copy">
+            <div className="form-section__copy reveal">
               <span className="eyebrow">Заявка</span>
               <h2>Обсудим ваш лендинг</h2>
               <p>
@@ -152,7 +169,7 @@ function App() {
               </p>
             </div>
 
-            <form className="lead-form" onSubmit={handleSubmit}>
+            <form className="lead-form reveal" style={{ '--d': 1 }} onSubmit={handleSubmit}>
               <label className="field">
                 <span>Имя</span>
                 <input
@@ -216,8 +233,8 @@ function App() {
             <span className="eyebrow">Прайс</span>
             <h2>Тарифы </h2>
             <div className="price__grid">
-              {PLANS.map((p) => (
-                <div className="price__card" key={p.name}>
+              {PLANS.map((p, i) => (
+                <div className="price__card reveal" key={p.name} style={{ '--d': i }}>
                   <h3>{p.name}</h3>
                   <p>{p.desc}</p>
                   <span className="price__value">{p.price}</span>
@@ -235,15 +252,15 @@ function App() {
               <h2>Свяжитесь с нами</h2>
             </div>
             <div className="contacts__grid">
-              <div className="contacts__item">
+              <div className="contacts__item reveal" style={{ '--d': 0 }}>
                 <span>Телефон</span>
                 <strong>+79371655455</strong>
               </div>
-              <div className="contacts__item">
+              <div className="contacts__item reveal" style={{ '--d': 1 }}>
                 <span>Telegram</span>
                 <strong>https://t.me/lordgeass</strong>
               </div>
-              <div className="contacts__item">
+              <div className="contacts__item reveal" style={{ '--d': 2 }}>
                 <span>Email</span>
                 <strong>d1zzze616@gmail.com</strong>
               </div>
