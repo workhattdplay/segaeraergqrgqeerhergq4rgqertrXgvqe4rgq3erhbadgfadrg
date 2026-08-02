@@ -150,7 +150,7 @@ function App() {
             </div>
             <div className="advantages__grid">
               {ADVANTAGES.map((a, i) => (
-                <div className="advantage reveal" key={a.floor} style={{ '--d': i }}>
+                <div className="advantage reveal" key={a.floor} style={{ '--d': i % 3 }}>
                   <span className="advantage__floor">Этаж {a.floor}</span>
                   <h3>{a.title}</h3>
                   <p>{a.text}</p>
