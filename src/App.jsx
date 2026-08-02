@@ -131,7 +131,7 @@ function App() {
                       <span
                         className="skyline__floor"
                         key={f}
-                        style={{ '--f': b.floors - f }}
+                        style={{ '--f': b.floors - f, '--seq': f }}
                       />
                     ))}
                   </div>
