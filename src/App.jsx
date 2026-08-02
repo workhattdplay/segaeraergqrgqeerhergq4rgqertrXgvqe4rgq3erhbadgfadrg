@@ -160,6 +160,31 @@ function App() {
           </div>
         </section>
 
+        <section className="price" id="price">
+          <div className="container">
+            <div className="reveal">
+              <span className="eyebrow">Прайс</span>
+              <h2>Тарифы </h2>
+            </div>
+            <div className="price__grid">
+              {PLANS.map((p, i) => (
+                <div className="price__card reveal" key={p.name} style={{ '--d': i }}>
+                  <h3>{p.name}</h3>
+                  <p>{p.desc}</p>
+                  <span className="price__value">{p.price}</span>
+                  <a
+                    href="#form"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => setForm((prev) => ({ ...prev, plan: p.name }))}
+                  >
+                    Оставьте заявку
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="form-section" id="form">
           <div className="container form-section__row">
             <div className="form-section__copy reveal">
@@ -237,25 +262,6 @@ function App() {
                 </p>
               )}
             </form>
-          </div>
-        </section>
-
-        <section className="price" id="price">
-          <div className="container">
-            <div className="reveal">
-              <span className="eyebrow">Прайс</span>
-              <h2>Тарифы </h2>
-            </div>
-            <div className="price__grid">
-              {PLANS.map((p, i) => (
-                <div className="price__card reveal" key={p.name} style={{ '--d': i }}>
-                  <h3>{p.name}</h3>
-                  <p>{p.desc}</p>
-                  <span className="price__value">{p.price}</span>
-                  <a href="#form" className="btn btn--ghost btn--sm">Оставьте заявку</a>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
