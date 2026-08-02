@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fluxprod.vercel.app/
+Sitemap: https://fluxprod.vercel.app/sitemap.xml
