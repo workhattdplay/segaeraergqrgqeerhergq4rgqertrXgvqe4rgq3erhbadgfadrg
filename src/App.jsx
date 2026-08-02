@@ -221,7 +221,7 @@ function App() {
                   <h3>{p.name}</h3>
                   <p>{p.desc}</p>
                   <span className="price__value">{p.price}</span>
-                  <a href="#form" className="btn btn--ghost btn--sm">Узнать стоимость</a>
+                  <a href="#form" className="btn btn--ghost btn--sm">Оставьте заявку</a>
                 </div>
               ))}
             </div>
